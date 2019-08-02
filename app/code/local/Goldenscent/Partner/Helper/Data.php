@@ -45,4 +45,16 @@ class Goldenscent_Partner_Helper_Data extends Mage_Core_Helper_Abstract
             Mage::getModel('core/cookie')->delete(self::COOKIE_NAME);
         }
     }
+
+    /***
+     * Check partner exists in the cookie
+     * @return bool
+     */
+    public function isPartner()
+    {
+        if($partnerCookie = Mage::getModel('core/cookie')->get(self::COOKIE_NAME)){
+            return true;
+        }
+        return false;
+    }
 }
