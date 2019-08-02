@@ -5,4 +5,20 @@
             <version>1.0.0</version>
         </Goldenscent_Partner>
     </modules>
+    <events>
+        <controller_action_layout_render_before>
+            <observers>
+                <goldenscent_partner_cookie>
+                    <type>singleton</type>
+                    <class>goldenscent_partner/observer</class>
+                    <method>setCookie</method>
+                </goldenscent_partner_cookie>
+            </observers>
+        </controller_action_layout_render_before>
+    </events>
+    <helpers>
+        <goldenscent_partner>
+            <class>Goldenscent_Partner_Helper</class>
+        </goldenscent_partner>
+    </helpers>
 </config>
