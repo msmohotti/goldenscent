@@ -52,7 +52,7 @@ class Goldenscent_Partner_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isPartner()
     {
-        if($partnerCookie = Mage::getModel('core/cookie')->get(self::COOKIE_NAME)){
+        if ($partnerCookie = Mage::getModel('core/cookie')->get(self::COOKIE_NAME)) {
             return true;
         }
         return false;

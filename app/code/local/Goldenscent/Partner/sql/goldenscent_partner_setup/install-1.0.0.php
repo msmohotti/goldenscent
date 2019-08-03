@@ -15,7 +15,7 @@ $this->getConnection()->addColumn($installer->getTable('sales/order'),
     'partner',
     array(
         'type' => Varien_Db_Ddl_Table::TYPE_VARCHAR,
-        'length'    => 255,
+        'length' => 255,
         'nullable' => true,
         'default' => null,
         'comment' => 'Partner name'

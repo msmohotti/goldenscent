@@ -34,7 +34,7 @@ class Goldenscent_Partner_Model_Observer extends Varien_Event_Observer
         //If cookie is available split invoices & shipments
         if ($helper->isPartner()) {
             $orderIds = $observer->getEvent()->getOrderIds();
-            if(count($orderIds)) {
+            if (count($orderIds)) {
                 $order = Mage::getModel('sales/order')->load($orderIds[0]);
                 $orderItem = new Goldenscent_Partner_Model_OrderItems($order);
                 $orderItem->split();
@@ -60,9 +60,9 @@ class Goldenscent_Partner_Model_Observer extends Varien_Event_Observer
         if ($block->getType() == 'adminhtml/sales_order_grid') {
             /* @var $block Mage_Adminhtml_Block_Customer_Grid */
             $block->addColumnAfter('partner', array(
-                'header'    => 'Partner Name',
-                'type'      => 'text',
-                'index'     => 'partner_name',
+                'header' => 'Partner Name',
+                'type' => 'text',
+                'index' => 'partner_name',
             ), 'shipping_name');
         }
     }
@@ -75,8 +75,8 @@ class Goldenscent_Partner_Model_Observer extends Varien_Event_Observer
     {
         $collection = $observer->getOrderGridCollection();
         $select = $collection->getSelect();
-        $select->joinLeft(array('order'=>$collection->getTable('sales/order')),
-            'order.entity_id=main_table.entity_id',array('partner'=>'partner'));
+        $select->joinLeft(array('order' => $collection->getTable('sales/order')),
+            'order.entity_id=main_table.entity_id', array('partner' => 'partner'));
 
 
     }
