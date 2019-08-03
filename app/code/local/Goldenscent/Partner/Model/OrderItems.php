@@ -38,6 +38,7 @@ class Goldenscent_Partner_Model_OrderItems extends Mage_Core_Model_Abstract
         foreach ($splitItems as $splitItem) {
             if (count($splitItem)) {
                 $this->createInvoices($splitItem);
+                $this->createShipments($splitItem);
             }
         }
     }
@@ -90,6 +91,21 @@ class Goldenscent_Partner_Model_OrderItems extends Mage_Core_Model_Abstract
             //Save partner to the order
             $this->order->setPartnerName($partner);
             $this->order->save();
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    /**
+     * @param $shipQty
+     * @throws Exception
+     */
+    protected function createShipments($shipQty)
+    {
+        try {
+            $shipment = Mage::getModel('sales/service_order', $this->order)->prepareShipment($shipQty);
+            $this->order->addStatusHistoryComment('Shipment split - Order was referred by a partner', false);
+            $shipment->save();
         } catch (Exception $ex) {
             throw $ex;
         }
