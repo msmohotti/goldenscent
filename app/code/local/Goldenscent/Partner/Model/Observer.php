@@ -43,4 +43,41 @@ class Goldenscent_Partner_Model_Observer extends Varien_Event_Observer
             }
         }
     }
+
+    /**
+     * Adds column to admin order grid
+     *
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function appendCustomColumn(Varien_Event_Observer $observer)
+    {
+        $block = $observer->getBlock();
+        if (!isset($block)) {
+            return $this;
+        }
+
+        if ($block->getType() == 'adminhtml/sales_order_grid') {
+            /* @var $block Mage_Adminhtml_Block_Customer_Grid */
+            $block->addColumnAfter('partner', array(
+                'header'    => 'Partner Name',
+                'type'      => 'text',
+                'index'     => 'partner_name',
+            ), 'shipping_name');
+        }
+    }
+
+    /***
+     * Set value for custom grid attribute partner
+     * @param Varien_Event_Observer $observer
+     */
+    public function salesOrderGridCollectionLoadBefore(Varien_Event_Observer $observer)
+    {
+        $collection = $observer->getOrderGridCollection();
+        $select = $collection->getSelect();
+        $select->joinLeft(array('order'=>$collection->getTable('sales/order')),
+            'order.entity_id=main_table.entity_id',array('partner'=>'partner'));
+
+
+    }
 }

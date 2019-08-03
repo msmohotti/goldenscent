@@ -37,4 +37,25 @@
             </setup>
         </goldenscent_partner_setup>
     </resources>
+    <adminhtml>
+        <events>
+            <core_block_abstract_prepare_layout_before>
+                <observers>
+                    <customgrid_column_append>
+                        <type>model</type>
+                        <class>Goldenscent_Partner_Model_Observer</class>
+                        <method>appendCustomColumn</method>
+                    </customgrid_column_append>
+                </observers>
+            </core_block_abstract_prepare_layout_before>
+            <sales_order_grid_collection_load_before>
+                <observers>
+                    <goldenscent_partner_order_load_before>
+                        <model>goldenscent_partner/observer</model>
+                        <method>salesOrderGridCollectionLoadBefore</method>
+                    </goldenscent_partner_order_load_before>
+                </observers>
+            </sales_order_grid_collection_load_before>
+        </events>
+    </adminhtml>
 </config>
